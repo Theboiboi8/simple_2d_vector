@@ -68,7 +68,7 @@ fn main() {
     );
     
     // `Vector2D.shift` automatically converts applicable types into f32
-    // let shift = (-2i16, 1.25); // This allows for a mismatch of types
+    let shift = (-2i16, 1.25); // This allows for a mismatch of types
     
     // Shifting a vector moves only its `origin`,
     // as it's `target` is relative to its `origin`
