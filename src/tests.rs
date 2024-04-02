@@ -14,17 +14,39 @@ fn new_vector() {
 	assert_eq!(vector, new_vector);
 }
 #[test]
-fn null_vector() {
-	let null_vector = Vector2D::null();
+fn zero_vector() {
+	let zero_vector = Vector2D::zero();
 	let vector = Vector2D::new(
 		(0.0, 0.0),
+		(0.0, 0.0)
+	);
+	assert_eq!(vector, zero_vector);
+}
+
+#[test]
+fn null_vector() {
+	let null_vector = Vector2D::null((5.0, 5.0));
+	let vector = Vector2D::new(
+		(5.0, 5.0),
 		(0.0, 0.0)
 	);
 	assert_eq!(vector, null_vector);
 }
 #[test]
+fn with_absolute_target_vector() {
+	let vector = Vector2D::new(
+		(5.0, 5.0),
+		(5.0, 5.0)
+	);
+	let absolute_target_vector = Vector2D::with_absolute_target(
+		(5.0, 5.0),
+		(10.0, 10.0)
+	);
+	assert_eq!(vector, absolute_target_vector);
+}
+#[test]
 fn set_origin() {
-	let set_origin_vector = Vector2D::null().set_origin((1.1, 2.2));
+	let set_origin_vector = Vector2D::zero().set_origin((1.1, 2.2));
 	let vector = Vector2D::new(
 		(1.1, 2.2),
 		(0.0, 0.0)
@@ -33,10 +55,19 @@ fn set_origin() {
 }
 #[test]
 fn set_target() {
-	let set_target_vector = Vector2D::null().set_target((1.1, 2.2));
+	let set_target_vector = Vector2D::zero().set_target((1.1, 2.2));
 	let vector = Vector2D::new(
 		(0.0, 0.0),
 		(1.1, 2.2)
+	);
+	assert_eq!(vector, set_target_vector);
+}
+#[test]
+fn set_target_absolute() {
+	let set_target_vector = Vector2D::null((1.0, 5.0)).set_target_absolute((1.1, 2.2));
+	let vector = Vector2D::new(
+		(1.0, 5.0),
+		(0.1, -2.8)
 	);
 	assert_eq!(vector, set_target_vector);
 }
@@ -63,7 +94,6 @@ fn add_vectors() {
 		(15.0, 15.0)
 	);
 	assert_eq!(vector1 + vector2, result_vector);
-	assert_eq!(vector1 + vector2, vector1.add(vector2));
 }
 #[test]
 fn addition() {
@@ -92,6 +122,17 @@ fn sub_vectors() {
 		(5.0, -5.0)
 	);
 	assert_eq!(vector1 - vector2, result_vector);
+}
+#[test]
+fn subtraction() {
+	let vector1 = Vector2D::new(
+		(10.0, 10.0),
+		(10.0, 5.0)
+	);
+	let vector2 = Vector2D::new(
+		(10.0, 10.0),
+		(5.0, 10.0)
+	);
 	assert_eq!(vector1 - vector2, vector1.sub(vector2));
 }
 #[test]

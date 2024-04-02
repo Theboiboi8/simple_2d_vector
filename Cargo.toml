@@ -1,7 +1,15 @@
 [package]
 name = "vector2d"
+description = "Simple two-dimensional vectors in Rust"
 version = "0.1.0"
 edition = "2021"
+authors = ["Theboiboi8 <kamela_ae@proton.me>"]
+rust-version = "1.56.1"
+license = "MIT"
+repository = "https://github.com/Theboiboi8/vector2d"
+keywords = ["vector", "math", "two-dimensional"]
+categories = ["mathematics"]
+publish = ["vector2d"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

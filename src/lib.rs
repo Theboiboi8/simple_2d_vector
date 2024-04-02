@@ -7,38 +7,80 @@ use std::ops::{Add, Sub};
 #[must_use]
 /// A grid-based two-dimensional representation of a mathematical vector.
 pub struct Vector2D {
-    /// Defines the origin point of the vector on a grid centered around (0,0).
-    origin: (f32, f32),
+    /// Defines the origin point of the vector on a grid centered around (0, 0).
+    origin: (f64, f64),
     /// The end of the vector in relation to its origin.
-    target: (f32, f32)
+    target: (f64, f64)
 }
 
 impl Vector2D {
-    /// A null [`Vector2D`] with both `origin` and `target` at (0,0).
-    pub fn null() -> Self {
+    /// A zero [`Vector2D`] with both `origin` and `target` at (0, 0).
+    pub fn zero() -> Self {
         Vector2D {
             origin: (0.0, 0.0),
             target: (0.0, 0.0),
         }
     }
 
+    /// A [`Vector2D`] with a `target` of (0, 0).
+    ///
+    /// Also known as a zero-length vector
+    pub fn null(origin: (f64, f64)) -> Self {
+        Vector2D {
+            origin,
+            target: (0.0, 0.0),
+        }
+    }
+
     /// Constructs a [`Vector2D`] from the provided `origin` and `target`.
-    pub fn new(origin: (f32, f32), target: (f32, f32)) -> Self {
+    pub fn new(origin: (f64, f64), target: (f64, f64)) -> Self {
         Vector2D {
             origin,
             target,
         }
     }
 
+    /// Constructs a [`Vector2D`] from the provided `origin` and `target`.
+    ///
+    /// The difference between this and [`Vector2D::new()`] is that this
+    /// treats `target` as an absolute value,
+    /// meaning that `Vector2D::with_absolute_target((1.0,0.0),(2.0,1.0))`
+    /// constructs a vector with an `origin` of (1.0, 0.0) but a `target`
+    /// of (1.0, 1.0) as opposed to a `target` of (2.0, 1.0).
+    pub fn with_absolute_target(origin: (f64, f64), target: (f64, f64)) -> Self {
+        Vector2D {
+            origin,
+            target: (target.0 - origin.0, target.1 - origin.1),
+        }
+    }
+
     /// Sets the `origin` of [`self`]
-    pub fn set_origin(mut self, origin: (f32, f32)) -> Self {
+    pub fn set_origin(mut self, origin: (f64, f64)) -> Self {
         self.origin = origin;
         self
     }
 
     /// Sets the `target` of [`self`]
-    pub fn set_target(mut self, target: (f32, f32)) -> Self {
+    pub fn set_target(mut self, target: (f64, f64)) -> Self {
         self.target = target;
+        self
+    }
+
+    /// Sets the `target` of [`self`].
+    ///
+    /// Uses an absolute `target` instead of a relative one.
+    ///
+    /// Due to issues with imprecise float arithmetic operations,
+    /// only the first five digits of the input `target` are kept,
+    /// and anything past that is rounded.
+    /// 
+    /// So far, I have only encountered this issue with this function,
+    /// but if you encounter any others during use, please report them in the issue tracker.
+    pub fn set_target_absolute(mut self, target: (f64, f64)) -> Self {
+        self.target = (
+            ((target.0 - self.origin.0) * 10000.0).round() / 10000.0, // Rounding as a workaround for errors in insignificant bits
+            ((target.1 - self.origin.1) * 10000.0).round() / 10000.0, // Rounding as a workaround for errors in insignificant bits
+        );
         self
     }
 
@@ -47,7 +89,7 @@ impl Vector2D {
     ///
     /// The resulting [`Vector2D`] has the same `target` value, as it's relative to its `origin`,
     /// but a shifted `origin`, which results in an overall shift of the [`Vector2D`].
-    pub fn shift(mut self, shift: (impl Into<f32>, impl Into<f32>)) -> Self {
+    pub fn shift(mut self, shift: (impl Into<f64>, impl Into<f64>)) -> Self {
         self.origin = (self.origin.0 + shift.0.into(), self.origin.1 + shift.1.into());
         self
     }
