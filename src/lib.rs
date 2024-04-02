@@ -110,6 +110,7 @@ impl Vector2D {
 }
 
 impl Display for Vector2D {
+    /// Formats the [`Vector2D`] with the given formatter and prepares it for user-facing output.
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
