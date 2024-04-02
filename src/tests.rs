@@ -210,5 +210,5 @@ fn get_angle_between() {
 		(5.0, 7.0)
 	);
 	let angle_between = 0.023_251_623;
-	assert_eq!((vector1.get_angle_between(vector2)* 1000000000.0).round() / 1000000000.0, angle_between);
+	assert_eq!((vector1.get_angle_between(vector2)* 1_000_000_000.0).round() / 1_000_000_000.0, angle_between);
 }

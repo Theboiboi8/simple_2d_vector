@@ -71,15 +71,15 @@ impl Vector2D {
     /// Uses an absolute `target` instead of a relative one.
     ///
     /// Due to issues with imprecise float arithmetic operations,
-    /// only the first five digits of the input `target` are kept,
+    /// only the first six digits of the input `target` are kept,
     /// and anything past that is rounded.
     /// 
     /// So far, I have only encountered this issue with this function,
     /// but if you encounter any others during use, please report them in the issue tracker.
     pub fn set_target_absolute(mut self, target: (f64, f64)) -> Self {
         self.target = (
-            ((target.0 - self.origin.0) * 10000.0).round() / 10000.0, // Rounding as a workaround for errors in insignificant bits
-            ((target.1 - self.origin.1) * 10000.0).round() / 10000.0, // Rounding as a workaround for errors in insignificant bits
+            ((target.0 - self.origin.0) * 1_000_000.0).round() / 1_000_000.0,
+            ((target.1 - self.origin.1) * 1_000_000.0).round() / 1_000_000.0,
         );
         self
     }
@@ -104,6 +104,7 @@ impl Vector2D {
         self.target.0 * vector.target.0 + self.target.1 * vector.target.1
     }
 
+    /// Returns the angle between the given [`Vector2D`]s in radians.
     pub fn get_angle_between(&self, vector: Vector2D) -> f64 {
         f64::acos(self.dot_product(vector) / (self.get_magnitude() * vector.get_magnitude()))
     }
@@ -111,6 +112,20 @@ impl Vector2D {
 
 impl Display for Vector2D {
     /// Formats the [`Vector2D`] with the given formatter and prepares it for user-facing output.
+    /// 
+    /// The format is `(origin.0,origin.1)[target.0,target.1]`.
+    /// 
+    /// Example:
+    /// ```rust
+    /// use simple_2d_vector::Vector2D;
+    /// 
+    /// let vector = Vector2D::new(
+    ///     (2.2, 1.1),
+    ///     (1.1, 2.2)
+    /// );
+    /// 
+    /// assert_eq!(format!("{vector}"), "(2.2,1.1)[1.1,2.2]");
+    /// ```
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
