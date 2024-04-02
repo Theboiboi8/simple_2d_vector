@@ -93,6 +93,20 @@ impl Vector2D {
         self.origin = (self.origin.0 + shift.0.into(), self.origin.1 + shift.1.into());
         self
     }
+
+    /// Returns the magnitude of the given [`Vector2D`].
+    pub fn get_magnitude(&self) -> f64 {
+        f64::sqrt((self.origin.0 - self.target.0).powf(2.0) + (self.origin.1 - self.target.1).powf(2.0))
+    }
+    
+    /// Returns the dot product of the given [`Vector2D`]s.
+    pub fn dot_product(&self, vector: Vector2D) -> f64 {
+        self.target.0 * vector.target.0 + self.target.1 * vector.target.1
+    }
+
+    pub fn get_angle_between(&self, vector: Vector2D) -> f64 {
+        f64::acos(self.dot_product(vector) / (self.get_magnitude() * vector.get_magnitude()))
+    }
 }
 
 impl Display for Vector2D {

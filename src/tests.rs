@@ -174,3 +174,41 @@ fn shift_mixed() {
 	);
 	assert_eq!(vector.shift(tuple), result_vector);
 }
+#[test]
+fn get_magnitude() {
+	let error_margin = f64::EPSILON;
+	let vector = Vector2D::new(
+		(0.0, 0.0),
+		(3.0, 4.0)
+	);
+	let magnitude = 5.0;
+	assert!((vector.get_magnitude() - magnitude).abs() < error_margin);
+}
+#[test]
+fn get_dot_product() {
+	let error_margin = f64::EPSILON;
+	let vector1 = Vector2D::new(
+		(0.0, 0.0),
+		(3.0, 4.0)
+	);
+	let vector2 = Vector2D::new(
+		(0.0, 0.0),
+		(5.0, 7.0)
+	);
+	let dot_product = 43.0;
+	assert!((vector1.dot_product(vector2) - dot_product).abs() < error_margin);
+}
+#[test]
+fn get_angle_between() {
+	let error_margin = f64::EPSILON;
+	let vector1 = Vector2D::new(
+		(0.0, 0.0),
+		(3.0, 4.0)
+	);
+	let vector2 = Vector2D::new(
+		(0.0, 0.0),
+		(5.0, 7.0)
+	);
+	let angle_between = 0.023251623;
+	assert_eq!((vector1.get_angle_between(vector2)* 1000000000.0).round() / 1000000000.0, angle_between);
+}
