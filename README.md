@@ -1,8 +1,8 @@
-# Vector2D
+# Simple 2D Vector
 Simple grid-based 2-dimensional vectors in Rust
 
 ## Getting Started
-To get started with `vector2d`, add it to your project using `cargo add vector2d`.
+To get started with `simple_2d_vector`, add it to your project using `cargo add simple_2d_vector`.
 
 You can then use it by using the provided `Vector2D` struct.
 

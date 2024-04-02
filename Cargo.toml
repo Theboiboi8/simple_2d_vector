@@ -1,12 +1,12 @@
 [package]
-name = "vector2d"
+name = "simple_2d_vector"
 description = "Simple two-dimensional vectors in Rust"
 version = "0.1.0"
 edition = "2021"
 authors = ["Theboiboi8 <kamela_ae@proton.me>"]
 rust-version = "1.56.1"
 license = "MIT"
-repository = "https://github.com/Theboiboi8/vector2d"
+repository = "https://github.com/Theboiboi8/simple_2d_vector"
 keywords = ["vector", "math", "two-dimensional"]
 categories = ["mathematics"]
 
