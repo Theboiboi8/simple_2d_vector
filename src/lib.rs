@@ -8,9 +8,9 @@ use std::ops::{Add, Sub};
 /// A grid-based two-dimensional representation of a mathematical vector.
 pub struct Vector2D {
     /// Defines the origin point of the vector on a grid centered around (0, 0).
-    origin: (f64, f64),
+    pub origin: (f64, f64),
     /// The end of the vector in relation to its origin.
-    target: (f64, f64)
+    pub target: (f64, f64)
 }
 
 impl Vector2D {
@@ -149,7 +149,6 @@ impl Add for Vector2D {
         }
     }
 }
-
 
 impl Sub for Vector2D {
     type Output = Self;
