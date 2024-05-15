@@ -17,8 +17,8 @@ use vector2d::Vector2D;
 
 fn main() {
     let vector = Vector2D::new(
-        (0.0, 0.0), // The origin of the vector
-        (0.0, 0.0)  // The target of the vector
+        (0.0, 0.0).into(), // The origin of the vector
+        (0.0, 0.0).into()  // The target of the vector
     );
     
     // Null vectors are vectors with a length of zero
@@ -35,23 +35,23 @@ use vector2d::Vector2D;
 
 fn main() { 
     let vector1 = Vector2D::new(
-        (10.0, 10.0), 
-        (10.0, 5.0)
+        (10.0, 10.0).into(), 
+        (10.0, 5.0).into()
     );
     
     let vector2 = Vector2D::new(
-        (10.0, 10.0), 
-        (5.0, 10.0)
+        (10.0, 10.0).into(), 
+        (5.0, 10.0).into()
     );
     
     let result_vector_addition = Vector2D::new(
-        (10.0, 10.0), 
-        (15.0, 15.0)
+        (10.0, 10.0).into(), 
+        (15.0, 15.0).into()
     );
     
     let result_vector_subtraction = Vector2D::new(
-        (10.0, 10.0), 
-        (5.0, -5.0)
+        (10.0, 10.0).into(), 
+        (5.0, -5.0).into()
     );
     
     assert_eq!(vector1 + vector2, result_vector_addition);
@@ -66,8 +66,8 @@ use vector2d::Vector2D;
 
 fn main() { 
     let vector = Vector2D::new(
-        (10.0, 10.0), 
-        (10.0, 5.0)
+        (10.0, 10.0).into(), 
+        (10.0, 5.0).into()
     );
     
     // `Vector2D.shift` automatically converts applicable types into f32
@@ -76,8 +76,8 @@ fn main() {
     // Shifting a vector moves only its `origin`,
     // as it's `target` is relative to its `origin`
     let result_vector = Vector2D::new(
-        (8.0, 11.25), 
-        (10.0, 5.0)
+        (8.0, 11.25).into(), 
+        (10.0, 5.0).into()
     );
     
     assert_eq!(vector.shift(shift), result_vector);
